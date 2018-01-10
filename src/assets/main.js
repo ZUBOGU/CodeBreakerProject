@@ -71,7 +71,7 @@ function showAnswer(b) {
 }
 
 function showReplay() {
-	document.getElementById('replay-div');.style.display = "block";
+	document.getElementById('replay-div').style.display = "block";
 	document.getElementById('guessing-div').styple.display = "none";
 }
 //implement new functions here
