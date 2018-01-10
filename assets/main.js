@@ -1,7 +1,7 @@
 let answer = document.getElementById('answer');
 let attempt = document.getElementById('attempt');
 let message = document.getElementById('message');
-let Result = document.getElementById('results');
+let result = document.getElementById('results');
 let code = document.getElementById('code');
 let replay_div = document.getElementById('replay-div');
 let guessing_div = document.getElementById('guessing-div');
@@ -17,15 +17,15 @@ function guess() {
     }
     attempt.value += 1;
     if (getResults(input.value)) {
-   		setMessae('You Win! :)');
+   		setMessage('You Win! :)');
    		showAnswer(true);
    		showReplay();
    	} else if (attempt.value > 10) {
-   		setMessae('You Lose! :(');
+   		setMessage('You Lose! :(');
    		showAnswer(false);
    		showReplay();
    	} else {
-   		setMessae('Incorrect, try again.');
+   		setMessage('Incorrect, try again.');
    	}
 }
 
@@ -37,7 +37,7 @@ function setHiddenFields() {
     attempt.value = 0;
 }
 
-function setMessae(message) {
+function setMessage(message) {
 	message.innerHTML = message;
 }
 
@@ -45,33 +45,25 @@ function validateInput(input){
 	if (input.length == 4) {
 		return true;
 	} else {
-		setMessae('Guesses must be exactly 4 characters long.');
+		setMessage('Guesses must be exactly 4 characters long.');
 		return false;
 	}
 }
 
 function getResults(input) {
 	var str = '<div class="row"><span class="col-md-6">' + input + '</span><div class="col-md-6">';
-	var count = 0;
 	for (var i = 0; i < 4 ; i ++) {
-		for (var j = 0; j < 4; j++) {
-			if (input.value.split('')[i] = answer.value.split('')[j] ){
-				if (i == j) {
-					str += '<span class="glyphicon glyphicon-ok"></span>';
-					count++;
-					break;
-				} else {
-					str += '<span class="glyphicon glyphicon-transfer"></span>';
-					break;
-				}
-			} else {
-				str += '<span class="glyphicon glyphicon-remove"></span>';
-			}	
+		if (input.value.charAt(i) == answer.value.charAt(i)) {
+			str += '<span class="glyphicon glyphicon-ok"></span>';
+		} else if (answer.value.indexOf(input.value.charAt(i)) > -1) {
+			str += '<span class="glyphicon glyphicon-transfer"></span>';
+		} else {
+			str += '<span class="glyphicon glyphicon-remove"></span>';
 		}
 	}
 	str += '</div></div>';
-	Result.innerHTML += str;
-	return count == 4;
+	result.innerHTML += str;
+	return input.value == answer.value;
 }
 
 function showAnswer(b) {
