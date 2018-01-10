@@ -7,11 +7,11 @@ function guess() {
     if (answer.value == '' || attempt.value == '') {
         setHiddenFields();
     }
-    if (!validateInput(input)) {
+    if (!validateInput(input.value)) {
     	return false;
     }
     attempt.value += 1;
-    if (getResults(input)) {
+    if (getResults(input.value)) {
 		setMessage('You Win! :)');
 		showAnswer(true);
 		showReplay();
