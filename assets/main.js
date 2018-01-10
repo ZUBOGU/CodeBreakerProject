@@ -11,7 +11,7 @@ function guess() {
     	return false;
     }
     attempt.value += 1;
-    if (getResults(input.value)) {
+    if (getResults(input)) {
    		setMessage('You Win! :)');
    		showAnswer(true);
    		showReplay();
@@ -48,9 +48,9 @@ function validateInput(input){
 function getResults(input) {
 	var str = '<div class="row"><span class="col-md-6">' + input + '</span><div class="col-md-6">';
 	for (var i = 0; i < 4 ; i ++) {
-		if (input.value.charAt(i) == answer.value.charAt(i)) {
+		if (input.charAt(i) == answer.value.charAt(i)) {
 			str += '<span class="glyphicon glyphicon-ok"></span>';
-		} else if (answer.value.indexOf(input.value.charAt(i)) > -1) {
+		} else if (answer.value.indexOf(input.charAt(i)) > -1) {
 			str += '<span class="glyphicon glyphicon-transfer"></span>';
 		} else {
 			str += '<span class="glyphicon glyphicon-remove"></span>';
@@ -58,7 +58,7 @@ function getResults(input) {
 	}
 	str += '</div></div>';
 	document.getElementById('results').innerHTML += str;
-	return input.value == answer.value;
+	return input == answer.value;
 }
 
 function showAnswer(b) {
