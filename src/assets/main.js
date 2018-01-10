@@ -7,17 +7,17 @@ function guess() {
     if (answer.value == '' || attempt.value == '') {
         setHiddenFields();
     }
-    if (!validateInput(input.value)) {
+    if (!validateInput(input)) {
     	return false;
     }
     attempt.value += 1;
     if (getResults(input)) {
-   		setMessage('You Win! :)');
-   		showAnswer(true);
-   		showReplay();
+		setMessage('You Win! :)');
+		showAnswer(true);
+		showReplay();
    	} else if (attempt.value > 10) {
    		setMessage('You Lose! :(');
-   		showAnswer(false);
+		showAnswer(false);
    		showReplay();
    	} else {
    		setMessage('Incorrect, try again.');
@@ -46,10 +46,12 @@ function validateInput(input){
 }
 
 function getResults(input) {
-	var str = '<div class="row"><span class="col-md-6">' + input + '</span><div class="col-md-6">';
+	let str = '<div class="row"><span class="col-md-6">' + input + '</span><div class="col-md-6">';
+	let count= 0;
 	for (var i = 0; i < 4 ; i ++) {
 		if (input.toString().charAt(i) == answer.value.charAt(i)) {
 			str += '<span class="glyphicon glyphicon-ok"></span>';
+			count++;
 		} else if (answer.value.indexOf(input.toString().charAt(i)) > -1) {
 			str += '<span class="glyphicon glyphicon-transfer"></span>';
 		} else {
@@ -58,7 +60,7 @@ function getResults(input) {
 	}
 	str += '</div></div>';
 	document.getElementById('results').innerHTML += str;
-	return input.toString() == answer.value;
+	return input.length == count;
 }
 
 function showAnswer(b) {
