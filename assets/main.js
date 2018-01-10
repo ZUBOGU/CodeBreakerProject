@@ -1,10 +1,5 @@
 let answer = document.getElementById('answer');
 let attempt = document.getElementById('attempt');
-let message = document.getElementById('message');
-let result = document.getElementById('results');
-let code = document.getElementById('code');
-let replay_div = document.getElementById('replay-div');
-let guessing_div = document.getElementById('guessing-div');
 
 function guess() {
     let input = document.getElementById('user-guess');
@@ -38,7 +33,7 @@ function setHiddenFields() {
 }
 
 function setMessage(message) {
-	message.innerHTML = message;
+	document.getElementById('message').innerHTML = message;
 }
 
 function validateInput(input){
@@ -62,21 +57,21 @@ function getResults(input) {
 		}
 	}
 	str += '</div></div>';
-	result.innerHTML += str;
+	document.getElementById('results').innerHTML += str;
 	return input.value == answer.value;
 }
 
 function showAnswer(b) {
 	code.innerHTML = answer.value;
 	if (b) {
-		code.className += ' success';
+		document.getElementById('code').className += ' success';
 	} else {
-		code.className += ' failure';
+		document.getElementById('code').className += ' failure';
 	}
 }
 
 function showReplay() {
-	replay_div.style.display = "block";
-	guessing_div.styple.display = "none";
+	document.getElementById('replay-div');.style.display = "block";
+	document.getElementById('guessing-div').styple.display = "none";
 }
 //implement new functions here
