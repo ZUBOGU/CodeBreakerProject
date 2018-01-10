@@ -5,69 +5,71 @@ let Result = document.getElementById('results');
 let code = document.getElementById('code');
 let replay_div = document.getElementById('replay-div');
 let guessing_div = document.getElementById('guessing-div');
+
 function guess() {
     let input = document.getElementById('user-guess');
     //add functionality to guess function here}
-    if (answer == '' || attempt == '') {
+    if (answer.value == '' || attempt.value == '') {
         setHiddenFields();
     }
     if (!validateInput(input.value)) {
     	return false;
     }
     attempt.value += 1;
-    if (getResults(input)) {
-   		setMessae("You Win! :)");
+    if (getResults(input.value)) {
+   		setMessae('You Win! :)');
    		showAnswer(true);
+   		showReplay();
    	} else if (attempt.value > 10) {
-   		setMessae("You Lose! :(");
+   		setMessae('You Lose! :(');
    		showAnswer(false);
+   		showReplay();
    	} else {
-   		setMessae("Incorrect, try again.");
+   		setMessae('Incorrect, try again.');
    	}
-   	showReplay();
 }
 
 function setHiddenFields() {
     answer.value = Math.floor(Math.random() * 10000).toString();
-    while (answer.length < 4) {
-        answer = "0"+ answer;
+    while (answer.value.length < 4) {
+        answer.value = "0"+ answer.value;
     }
     attempt.value = 0;
 }
 
-function setMessae(s) {
-	message.innerHTML = s;
+function setMessae(message) {
+	message.innerHTML = message;
 }
 
-function validateInput(p){
-	if (p.length == 4) {
+function validateInput(input){
+	if (input.length == 4) {
 		return true;
 	} else {
-		setMessae("Guesses must be exactly 4 characters long.");
+		setMessae('Guesses must be exactly 4 characters long.');
 		return false;
 	}
 }
 
-function getResults(p) {
-	var str = "<div class='row'><span class='col-md-6'>" + p + "</span><div class='col-md-6'>";
+function getResults(input) {
+	var str = '<div class="row"><span class="col-md-6">' + input + '</span><div class="col-md-6">';
 	var count = 0;
 	for (var i = 0; i < 4 ; i ++) {
 		for (var j = 0; j < 4; j++) {
-			if (p.split('')[i] = answer.split('')[j] ){
+			if (input.value.split('')[i] = answer.value.split('')[j] ){
 				if (i == j) {
-					str += "<span class='glyphicon glyphicon-ok'></span>";
+					str += '<span class="glyphicon glyphicon-ok"></span>';
 					count++;
-					continue;
+					break;
 				} else {
-					str += "<span class='glyphicon glyphicon-transfer'></span>";
-					continue;
+					str += '<span class="glyphicon glyphicon-transfer"></span>';
+					break;
 				}
 			} else {
-				str += "<span class='glyphicon glyphicon-remove'></span>";
+				str += '<span class="glyphicon glyphicon-remove"></span>';
 			}	
 		}
 	}
-	str += "</div>";
+	str += '</div></div>';
 	Result.innerHTML += str;
 	return count == 4;
 }
@@ -75,14 +77,14 @@ function getResults(p) {
 function showAnswer(b) {
 	code.innerHTML = answer.value;
 	if (b) {
-		code.className += " success";
+		code.className += ' success';
 	} else {
-		code.className += " failure";
+		code.className += ' failure';
 	}
 }
 
 function showReplay() {
 	replay_div.style.display = "block";
-	guessing_div.styple.display = "none"
+	guessing_div.styple.display = "none";
 }
 //implement new functions here
